@@ -44,3 +44,23 @@ result <- dbGetQuery(con, query)
 head(result,5)
 
 ```
+#### Tableau descriptif
+
+```{r table}
+
+tbl <- result %>%
+dplyr::select(dept, cla_age_5, niveau_prioritaire, sexe) %>%
+gtsummary::tbl_summary(
+by = dept, # regroupement principal par département
+statistic = all_continuous() ~ "{mean} ({sd})",
+digits = all_continuous() ~ 0,
+missing = "no"
+) %>%
+add_n() %>% # ajoute le nombre total d'observations
+modify_header(label ~ "Variable") %>%
+modify_caption("Tableau descriptif par département, classe d'âge, sexe et niveau prioritaire")
+
+tbl
+
+```
+
