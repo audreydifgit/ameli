@@ -29,3 +29,18 @@ library(gtsummary)
 ```{r connexion}
 con <- dbConnect(duckdb::duckdb(), dbdir = "ameli.duckdb", read_only = TRUE)
 ```
+#### Vérification des tables disponibles
+```{r tables_dispo}
+tables <- dbListTables(con)
+tables
+```
+#### Requête SQL : on récupère toutes les colonnes de la table cancers_idf
+```{r requete}
+query <- "SELECT * FROM cancers_idf "
+```
+#### Exécution de la requête
+```{r base}
+result <- dbGetQuery(con, query)
+head(result,5)
+
+```
