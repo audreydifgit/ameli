@@ -1,6 +1,6 @@
 import requests
 import pandas as pd
-import duckdb
+import duckdb 
 
 ###########################################################
 ### Récupération des données et importation dans DuckDB ###
