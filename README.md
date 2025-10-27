@@ -60,14 +60,14 @@ Le rapport est généré au format **HTML** via RMarkdown.
 
 ## 4. Instructions d’exécution  
 
-### 🔹 Partie Python  
+### Partie Python  
 1. Ouvrir le fichier **`ameli.py`**  
 2. Exécuter le script pour :  
    - Télécharger les données depuis l’API  
    - Créer la base `ameli.duckdb`  
    - Importer les données dans la table  
 
-### 🔹 Partie R  
+### Partie R  
 1. Ouvrir le fichier **`rapport_test_technique.Rmd`**  
 2. Exécuter le document (**Knit**) pour :  
    - Se connecter à la base DuckDB  
@@ -76,7 +76,7 @@ Le rapport est généré au format **HTML** via RMarkdown.
 
 ---
 
-## 🧠 Auteur  
+## Auteur  
 **Audrey Difernand** : 
  <audreydif@gmail.com>
 
