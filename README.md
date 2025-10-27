@@ -1,4 +1,4 @@
-# Projet Analyse des données de santé (Cancers en Île-de-France)
+# Analyse des données de santé - Cancers en Île-de-France
 Ce projet a pour objectif d'analyser un échantillon de données de la base Ameli au sujet des pathologies de cancers en Ile de France.
 
 ## 1. Description du projet
@@ -77,6 +77,6 @@ Le rapport est généré au format **HTML** via RMarkdown.
 ---
 
 ## 🧠 Auteur  
-**Audrey Difernand** 
+**Audrey Difernand** : 
  <audreydif@gmail.com>
 
