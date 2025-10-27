@@ -1,5 +1,6 @@
 import requests
 import pandas as pd
+import duckdb 
 
 ###########################################################
 ### Récupération des données et importation dans DuckDB ###
@@ -34,3 +35,27 @@ records = [r["fields"] for r in data.get("records", [])]
 df = pd.json_normalize(records)
 
 #df.head()
+
+#############
+## Etape 4 ##
+#############
+
+## Création base DuckDB et importation des données
+
+# Nom du fichier de base de données
+db_file = "ameli.duckdb"
+
+# Connexion à DuckDB 
+con = duckdb.connect(db_file)
+
+# Création de la table cancers_idf (ou l'efface si existe déjà)
+con.execute("DROP TABLE IF EXISTS cancers_idf;")
+con.execute("CREATE TABLE cancers_idf AS SELECT * FROM df")
+
+# Vérification rapide : compter les lignes
+result = con.execute("SELECT COUNT(*) FROM cancers_idf").fetchone()
+print(f"Nombre de lignes insérées dans DuckDB : {result[0]}")
+
+# Fermeture de la connexion
+con.close()
+print(f"Base de données DuckDB créée : {db_file}")
