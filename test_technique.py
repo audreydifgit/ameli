@@ -2,9 +2,13 @@ import requests
 import pandas as pd
 import duckdb
 
-### Récupération des données et importation dans DuckDB
+###########################################################
+### Récupération des données et importation dans DuckDB ###
+###########################################################
 
-## Etapes 1/2/3
+##################
+## Etapes 1/2/3 ##
+##################
 
 ## Script Python pour récupérer les données depuis l'API d'Ameli, 
 ## pathologies liées aux cancers, uniquement pour la region IDF
@@ -32,7 +36,9 @@ df = pd.json_normalize(records)
 
 #df.head()
 
-## Etape 4
+#############
+## Etape 4 ##
+#############
 
 ## Création base DuckDB et importation des données
 
@@ -54,28 +60,30 @@ print(f"Nombre de lignes insérées dans DuckDB : {result[0]}")
 con.close()
 print(f"Base de données DuckDB créée : {db_file}")
 
-## Etape 5
+#############
+## Etape 5 ##
+#############
 
 ## Vérification de l'importation et de l'accessibilité
 
-# Connexion à la base DuckDB existante
+# Connexion à la base DuckDB 
 con = duckdb.connect("ameli.duckdb")
 
-# 1️⃣ Vérifier les tables existantes
+# Vérifier les tables existantes (normalement il n'y en a qu'une)
 tables = con.execute("SHOW TABLES").fetchall()
 print("Tables dans la base DuckDB :")
 print(tables)
 
-# 2️⃣ Compter le nombre de lignes dans la table
+# Compter le nombre de lignes dans la table (normalement c'est 100 car étape 3)
 count = con.execute("SELECT COUNT(*) FROM cancers_idf").fetchone()[0]
 print(f"\n Nombre de lignes dans 'cancers_idf' : {count}")
 
-# 3️⃣ Afficher les 5 premières lignes
+# Afficher les 5 premières lignes
 df_preview = con.execute("SELECT * FROM cancers_idf LIMIT 5").fetchdf()
 print("\n Aperçu des 5 premières lignes :")
 df_preview
 
-# 4️⃣ Exemple d’agrégation : nombre total d’effectifs par département
+# Exemple d’agrégation : nombre total de patients par département
 agg = con.execute("""
     SELECT dept, COUNT(dept) AS total_effectif
     FROM cancers_idf
