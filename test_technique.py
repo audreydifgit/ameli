@@ -59,3 +59,40 @@ print(f"Nombre de lignes insérées dans DuckDB : {result[0]}")
 # Fermeture de la connexion
 con.close()
 print(f"Base de données DuckDB créée : {db_file}")
+
+#############
+## Etape 5 ##
+#############
+
+## Vérification de l'importation et de l'accessibilité
+
+# Connexion à la base DuckDB 
+con = duckdb.connect("ameli.duckdb")
+
+# Vérifier les tables existantes (normalement il n'y en a qu'une)
+tables = con.execute("SHOW TABLES").fetchall()
+print("Tables dans la base DuckDB :")
+print(tables)
+
+# Compter le nombre de lignes dans la table (normalement c'est 100 car étape 3)
+count = con.execute("SELECT COUNT(*) FROM cancers_idf").fetchone()[0]
+print(f"\n Nombre de lignes dans 'cancers_idf' : {count}")
+
+# Afficher les 5 premières lignes
+df_preview = con.execute("SELECT * FROM cancers_idf LIMIT 5").fetchdf()
+print("\n Aperçu des 5 premières lignes :")
+df_preview
+
+# Exemple d’agrégation : nombre total de patients par département
+agg = con.execute("""
+    SELECT dept, COUNT(dept) AS total_effectif
+    FROM cancers_idf
+    GROUP BY dept
+    ORDER BY total_effectif DESC
+""").fetchdf()
+
+print("\n Effectif total par département :")
+print(agg)
+
+# Fermeture de la connexion
+con.close()
