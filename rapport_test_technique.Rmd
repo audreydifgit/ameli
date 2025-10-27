@@ -1,0 +1,31 @@
+---
+title: "Rapport échantillon de données Cancers IDF de la base Ameli"
+author: "Audrey Difernand"
+date: "`r Sys.Date()`"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+## Création d'un rapport
+
+Objectif : Créer un rapport en format HTML en utilisant les données importées dans DuckDB
+
+
+
+```{r setup, include=FALSE}
+# Chargement des packages nécessaires
+knitr::opts_chunk$set(echo = TRUE)
+
+library(DBI)
+library(duckdb)
+library(dplyr)
+library(ggplot2)
+library(gtsummary)
+```
+
+
+#### Connexion à la base DuckDB locale
+```{r connexion}
+con <- dbConnect(duckdb::duckdb(), dbdir = "ameli.duckdb", read_only = TRUE)
+```
